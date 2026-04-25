@@ -69,3 +69,7 @@ php bin/console doctrine:migrations:generate
 ```Update admin roles
 php bin/console app:update-admin-role
 ```
+
+## Git Push Check
+
+This line was added to verify repository push access from the local machine.
