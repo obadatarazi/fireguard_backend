@@ -46,8 +46,9 @@ abstract class RestController extends AbstractFOSRestController
 
         $isValidRequest = $form->isSubmitted() && $form->isValid();
 
-        // if (!$isValidRequest)
-        //     throw new FormValidationHttpException($form->getErrors());
+        if (!$isValidRequest) {
+            throw new FormValidationHttpException($form->getErrors());
+        }
     }
 
     protected function viewResponse($data = null, ?int $statusCode = null, array $headers = []): Response

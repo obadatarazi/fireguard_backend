@@ -39,12 +39,12 @@ class DeviceValueType extends AbstractType
             ->add('date', null, [
                 'widget' => 'single_text',
                 'html5' => false,
-                'format' => 'dd/MM/yyyy hh:mm:ss',
+                'format' => 'dd/MM/yyyy HH:mm:ss',
                 'constraints' => [
                     new Assert\NotBlank()
                 ],
                 'documentation' => [
-                    'example' => "1/01/2022 03:50:10"
+                    'example' => "1/01/2022 15:50:10"
                 ]
             ])
             ->add('device', null, [
