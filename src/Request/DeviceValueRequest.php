@@ -9,7 +9,6 @@ class DeviceValueRequest extends AbstractRequest
     protected function defineFilters(): array
     {
         return [
-            ['key' => 'device', 'type' => Integer::class],
             ['key' => 'device_id', 'type' => Integer::class],
             ['key' => 'forest', 'type' => Integer::class],
         ];

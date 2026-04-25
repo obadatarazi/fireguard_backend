@@ -58,9 +58,6 @@ class AdminDeviceValueController extends RestController
         schema: new OA\Schema(type: "string", enum: ["sv.id","sv.device","sv.createdAt"]),
         example: "sv.id"
     )]
-    #[OA\Parameter(name: "device", description: "Apply filter by device.", in: "query",
-        schema: new OA\Schema(type: "integer", example: 1),
-    )]
     #[OA\Parameter(name: "device_id", description: "Apply filter by device id.", in: "query",
         schema: new OA\Schema(type: "integer", example: 1),
     )]
