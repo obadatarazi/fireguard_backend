@@ -16,6 +16,10 @@ security:
       pattern: ^/api/device-ingest
       stateless: true
       security: false
+    api_esp32:
+      pattern: ^/api/esp32
+      stateless: true
+      security: false
     api_admin_login:
       pattern: ^/api/admin/login
       stateless: true
@@ -64,6 +68,7 @@ security:
     - { path: ^/api/doc, roles: PUBLIC_ACCESS }
     - { path: ^/api/options, roles: PUBLIC_ACCESS }
     - { path: ^/api/device-ingest, roles: PUBLIC_ACCESS }
+    - { path: ^/api/esp32, roles: PUBLIC_ACCESS }
     - { path: ^/api/admin, roles: IS_AUTHENTICATED_FULLY }
     - { path: ^/api/admin/token/refresh, roles: PUBLIC_ACCESS }
     - { path: ^/api/mobile/(login), roles: PUBLIC_ACCESS }

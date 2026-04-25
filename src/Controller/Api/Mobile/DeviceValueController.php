@@ -12,11 +12,14 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api/esp32/device-values')]
 class DeviceValueController extends RestController
 {
+    private const DEVICE_KEY = 'OMIM2026';
+
     public function __construct(
         RestHelperService $rest,
         EntityManagerInterface $em,
@@ -49,14 +52,22 @@ class DeviceValueController extends RestController
             ),
         ]
     )]
+    #[OA\Parameter(
+        name: 'X-Device-Key',
+        in: 'header',
+        required: true,
+        description: 'Shared static key for ESP32 clients.',
+        schema: new OA\Schema(type: 'string', example: 'OMIM2026')
+    )]
     #[OA\Parameter(ref: "#components/parameters/locale")]
     public function create(Request $request): Response
     {
+        $this->assertDeviceKey($request);
         $deviceValue = new DeviceValue();
 
         $form = $this->createForm(DeviceValueType::class, $deviceValue);
 
-        $this->submitAttempt($form, $request->request->all());
+        $this->submitAttempt($form, $this->normalizePayload($request->request->all()));
         $this->deviceValueService->add($deviceValue);
 
         $this->rest->succeeded()->setData($deviceValue);
@@ -90,12 +101,20 @@ class DeviceValueController extends RestController
             ),
         ]
     )]
+    #[OA\Parameter(
+        name: 'X-Device-Key',
+        in: 'header',
+        required: true,
+        description: 'Shared static key for ESP32 clients.',
+        schema: new OA\Schema(type: 'string', example: 'OMIM2026')
+    )]
     #[OA\Parameter(ref: "#components/parameters/locale")]
     public function update(Request $request, DeviceValue $deviceValue): Response
     {
+        $this->assertDeviceKey($request);
         $form = $this->createForm(DeviceValueType::class, $deviceValue);
 
-        $this->submitAttempt($form, $request->request->all(), false);
+        $this->submitAttempt($form, $this->normalizePayload($request->request->all()), false);
 
         $this->deviceValueService->update($deviceValue);
 
@@ -104,5 +123,30 @@ class DeviceValueController extends RestController
         return $this
             ->setGroup(['details'])
             ->viewResponse($this->rest->getResponse(), Response::HTTP_OK);
+    }
+
+    private function assertDeviceKey(Request $request): void
+    {
+        $provided = trim((string) $request->headers->get('X-Device-Key', ''));
+        if ($provided === '') {
+            throw new UnauthorizedHttpException('DeviceKey', 'Missing X-Device-Key header.');
+        }
+
+        if (!hash_equals(self::DEVICE_KEY, $provided)) {
+            throw new UnauthorizedHttpException('DeviceKey', 'Invalid device key.');
+        }
+    }
+
+    private function normalizePayload(array $payload): array
+    {
+        if (!isset($payload['device']) && isset($payload['device_Id'])) {
+            $payload['device'] = $payload['device_Id'];
+        }
+
+        if (!isset($payload['device']) && isset($payload['device_id'])) {
+            $payload['device'] = $payload['device_id'];
+        }
+
+        return $payload;
     }
 }
