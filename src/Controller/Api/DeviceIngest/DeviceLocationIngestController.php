@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api/device-ingest/mobile-sensors')]
 class DeviceLocationIngestController extends RestController
 {
-    private const DEVICE_KEY = 'CHANGE_ME_DEVICE_KEY';
+    private const DEVICE_KEY = 'OMIM2026';
 
     public function __construct(
         RestHelperService $rest,
@@ -54,7 +54,7 @@ class DeviceLocationIngestController extends RestController
         in: 'header',
         required: true,
         description: 'Shared static key for all device clients.',
-        schema: new OA\Schema(type: 'string', example: 'CHANGE_ME_DEVICE_KEY')
+        schema: new OA\Schema(type: 'string', example: 'OMIM2026')
     )]
     #[OA\Parameter(
         name: 'id',
