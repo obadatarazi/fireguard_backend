@@ -115,17 +115,17 @@
 
     <mobile_sensors>
         <mobile_sensor ref="ms1" name="Drone Alpha-1" type="DRONE" status="ACTIVE" longitude="36.2700"
-                       latitude="33.5200" lastSeenAt="2026-03-25T10:00:00+00:00" centerRef="c1"/>
+                       latitude="33.5200" centerRef="c1"/>
         <mobile_sensor ref="ms2" name="Car Robot Beta" type="CAR_ROBOT" status="ACTIVE" longitude="37.1600"
-                       latitude="36.2100" lastSeenAt="2026-03-25T10:15:00+00:00" centerRef="c2"/>
+                       latitude="36.2100" centerRef="c2"/>
         <mobile_sensor ref="ms3" name="Drone Gamma" type="DRONE" status="IDLE" longitude="36.7100"
-                       latitude="34.7400" lastSeenAt="2026-03-25T09:45:00+00:00" centerRef="c3"/>
+                       latitude="34.7400" centerRef="c3"/>
         <mobile_sensor ref="ms4" name="Car Robot Delta" type="CAR_ROBOT" status="ACTIVE" longitude="35.7900"
-                       latitude="35.5200" lastSeenAt="2026-03-25T11:00:00+00:00" centerRef="c4"/>
+                       latitude="35.5200" centerRef="c4"/>
         <mobile_sensor ref="ms5" name="Drone Epsilon" type="DRONE" status="MAINTENANCE" longitude="36.3000"
-                       latitude="32.6200" lastSeenAt="2026-03-24T18:00:00+00:00" centerRef="c5"/>
+                       latitude="32.6200" centerRef="c5"/>
         <mobile_sensor ref="ms6" name="Car Robot Zeta" type="CAR_ROBOT" status="ACTIVE" longitude="35.8900"
-                       latitude="34.9000" lastSeenAt="2026-03-25T08:30:00+00:00" centerRef="c6"/>
+                       latitude="34.9000" centerRef="c6"/>
     </mobile_sensors>
 
     <device_values>

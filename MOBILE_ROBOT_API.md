@@ -32,7 +32,6 @@ Body payload (form fields):
 - `status` (string, e.g. `ACTIVE`)
 - `latitude` (string)
 - `longitude` (string)
-- `lastSeenAt` (ISO datetime string)
 - `center` (center id)
 
 Example (form-data):
@@ -44,7 +43,6 @@ curl -X POST "https://YOUR_DOMAIN/api/admin/mobile-sensors" \
   -F "status=ACTIVE" \
   -F "latitude=32.62545" \
   -F "longitude=33.26225" \
-  -F "lastSeenAt=2026-03-25T12:00:00+00:00" \
   -F "center=1"
 ```
 
@@ -68,7 +66,6 @@ curl -X PUT "https://YOUR_DOMAIN/api/admin/mobile-sensors/15" \
   -F "status=ACTIVE" \
   -F "latitude=32.62545" \
   -F "longitude=33.26225" \
-  -F "lastSeenAt=2026-03-25T12:00:00+00:00" \
   -F "center=1"
 ```
 
@@ -165,7 +162,7 @@ But the controller reads form fields from `$request->request->all()`, so the for
 
 Fix:
 Send the payload as `multipart/form-data` or `application/x-www-form-urlencoded` with the exact field names:
-`name,type,status,longitude,latitude,lastSeenAt,center`
+`name,type,status,longitude,latitude,center`
 
 ---
 

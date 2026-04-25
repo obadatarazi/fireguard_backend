@@ -450,7 +450,6 @@ class DemoImportService
             $ms->setStatus(trim((string) $node['status']));
             $ms->setLongitude(trim((string) $node['longitude']));
             $ms->setLatitude(trim((string) $node['latitude']));
-            $ms->setLastSeenAt(new \DateTimeImmutable(trim((string) $node['lastSeenAt'])));
             $ms->setCenter($this->em->getReference(Center::class, $refs[$cr]));
 
             $this->em->persist($ms);

@@ -20,14 +20,12 @@ final class Version20260325120000 extends AbstractMigration
                 `status` VARCHAR(50) NOT NULL,
                 `longitude` VARCHAR(255) NOT NULL,
                 `latitude` VARCHAR(255) NOT NULL,
-                `last_seen_at` DATETIME NOT NULL,
                 `created_at` DATETIME NOT NULL,
                 `updated_at` DATETIME NOT NULL,
                 PRIMARY KEY (`id`),
                 KEY `center_id` (`center_id`),
                 KEY `idx_mobile_sensor_type` (`type`),
                 KEY `idx_mobile_sensor_status` (`status`),
-                KEY `idx_mobile_sensor_last_seen_at` (`last_seen_at`),
                 CONSTRAINT `mobile_sensor_ibfk_1` FOREIGN KEY (`center_id`) REFERENCES `center` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
             ) "
         );

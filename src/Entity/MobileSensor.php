@@ -15,8 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      indexes={
  *          @ORM\Index(name="center_id", columns={"center_id"}),
  *          @ORM\Index(name="idx_mobile_sensor_type", columns={"type"}),
- *          @ORM\Index(name="idx_mobile_sensor_status", columns={"status"}),
- *          @ORM\Index(name="idx_mobile_sensor_last_seen_at", columns={"last_seen_at"})
+ *          @ORM\Index(name="idx_mobile_sensor_status", columns={"status"})
  * })
  * @ORM\Entity(repositoryClass=MobileSensorRepository::class)
  * @Serializer\ExclusionPolicy("All")
@@ -93,15 +92,6 @@ class MobileSensor
      * @Serializer\Groups({"list", "details"})
      */
     private $latitude;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="last_seen_at", type="datetime", nullable=false)
-     * @Assert\NotBlank()
-     * @OA\Property(example="2000-11-16")
-     */
-    private $lastSeenAt;
 
     /**
      * @var \DateTime
@@ -194,17 +184,6 @@ class MobileSensor
         return $this;
     }
 
-    public function getLastSeenAt(): ?\DateTimeInterface
-    {
-        return $this->lastSeenAt;
-    }
-
-    public function setLastSeenAt(\DateTimeInterface $lastSeenAt): static
-    {
-        $this->lastSeenAt = $lastSeenAt;
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -246,9 +225,6 @@ class MobileSensor
         $dateTime = new \DateTime();
         $this->createdAt = $dateTime;
         $this->updatedAt = $dateTime;
-        if (!$this->lastSeenAt) {
-            $this->lastSeenAt = $dateTime;
-        }
     }
 
     /**
