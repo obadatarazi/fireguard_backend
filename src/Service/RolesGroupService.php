@@ -69,8 +69,8 @@ class RolesGroupService extends AbstractService
 
     private function findAllPaginated($filters)
     {
-        $standard = $filters['standard'];
-        $search = $filters['search'];
+        $standard = $filters['standard'] ?? null;
+        $search = $filters['search'] ?? null;
 
         $qb = $this->repo
             ->createQueryBuilder('rg')

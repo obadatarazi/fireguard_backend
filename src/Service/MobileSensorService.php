@@ -44,10 +44,10 @@ class MobileSensorService extends AbstractService
 
     public function findAllPaginated($filters): Query
     {
-        $center = $filters['center'];
-        $type = $filters['type'];
-        $status = $filters['status'];
-        $search = $filters['search'];
+        $center = $filters['center'] ?? null;
+        $type = $filters['type'] ?? null;
+        $status = $filters['status'] ?? null;
+        $search = $filters['search'] ?? null;
 
         $qb = $this->repo
             ->createQueryBuilder('ms')

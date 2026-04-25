@@ -43,10 +43,10 @@ class CarService extends AbstractService
 
     public function findAllPaginated($filters): Query
     {
-        $search = $filters['search'];
-        $numberPlate = $filters['numberPlate'];
-        $model = $filters['model'];
-        $center = $filters['center'];
+        $search = $filters['search'] ?? null;
+        $numberPlate = $filters['numberPlate'] ?? null;
+        $model = $filters['model'] ?? null;
+        $center = $filters['center'] ?? null;
 
         $qb = $this->repo
             ->createQueryBuilder('ca')

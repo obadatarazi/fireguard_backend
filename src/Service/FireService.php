@@ -42,9 +42,9 @@ class FireService extends AbstractService
     }
     public function findAllPaginated($filters): Query
     {
-        $forest = $filters['forest'];
-        $status = $filters['status'];
-        $device = $filters['device'];
+        $forest = $filters['forest'] ?? null;
+        $status = $filters['status'] ?? null;
+        $device = $filters['device'] ?? null;
 
         $qb = $this->repo
             ->createQueryBuilder('fi')

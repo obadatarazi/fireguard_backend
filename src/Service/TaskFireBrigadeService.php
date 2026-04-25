@@ -41,9 +41,12 @@ class TaskFireBrigadeService extends AbstractService
 
     public function update(TaskFireBrigade $taskFireBrigade): void
     {
-        $statusTask = $this->getFireByTaskFireBridage($taskFireBrigade->getFire());
-        $status = $statusTask[0]->getStatus();
-        $statusTask[0]->getFire()->setStatus($status);
+        $fire = $taskFireBrigade->getFire();
+        $status = $taskFireBrigade->getStatus();
+
+        if ($fire !== null && $status !== null) {
+            $fire->setStatus($status);
+        }
         
         parent::updateEntity();
     }
@@ -54,9 +57,9 @@ class TaskFireBrigadeService extends AbstractService
     }
     public function findAllPaginated($filters): Query
     {
-        $fire = $filters['fire'];
-        $fireBrigade = $filters['fireBrigade'];
-        $status = $filters['status'];
+        $fire = $filters['fire'] ?? null;
+        $fireBrigade = $filters['fireBrigade'] ?? null;
+        $status = $filters['status'] ?? null;
         $qb = $this->repo
             ->createQueryBuilder('tf')
             ->where('1 = 1');

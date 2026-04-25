@@ -44,7 +44,9 @@ class ExceptionListener
         $exception = $event->getThrowable();
         $response = new JsonResponse();
         $requestUri = $event->getRequest()->getRequestUri();
-        $isApiPrefix = str_starts_with($requestUri, "/backend/public/api");
+        // Support both deployment styles: "/api/..." and "/backend/public/api/..."
+        $isApiPrefix = str_starts_with($requestUri, "/api")
+            || str_starts_with($requestUri, "/backend/public/api");
         if ($isApiPrefix) {
             if ($exception instanceof NotFoundHttpException) {
 

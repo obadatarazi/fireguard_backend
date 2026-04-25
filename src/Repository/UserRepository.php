@@ -23,10 +23,10 @@ class UserRepository extends AbstractRepository implements UserLoaderInterface, 
 
     public function findAllPaginated($filters)
     {
-        $search = $filters['search'];
-        $phoneNumber = $filters['phoneNumber'];
-        $rolesGroup = $filters['rolesGroup'];
-        $gender = $filters['gender'];
+        $search = $filters['search'] ?? null;
+        $phoneNumber = $filters['phoneNumber'] ?? null;
+        $rolesGroup = $filters['rolesGroup'] ?? null;
+        $gender = $filters['gender'] ?? null;
 
         $qb = $this
             ->createQueryBuilder('u')

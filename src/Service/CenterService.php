@@ -43,9 +43,9 @@ class CenterService extends AbstractService
 
     public function findAllPaginated($filters): Query
     {
-        $search = $filters['search'];
-        $phoneNumber = $filters['phoneNumber'];
-        $status = $filters['status'];
+        $search = $filters['search'] ?? null;
+        $phoneNumber = $filters['phoneNumber'] ?? null;
+        $status = $filters['status'] ?? null;
 
         $qb = $this->repo
             ->createQueryBuilder('c')

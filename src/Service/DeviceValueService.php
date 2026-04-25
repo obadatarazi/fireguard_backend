@@ -51,15 +51,23 @@ class DeviceValueService extends AbstractService
     }
     public function findAllPaginated($filters): Query
     {
-        $device = $filters['device'];
+        $device = $filters['device'] ?? null;
+        $deviceId = $filters['device_id'] ?? null;
+        $forest = $filters['forest'] ?? null;
 
         $qb = $this->repo
             ->createQueryBuilder('sv')
             ->where('1 = 1');
 
-        if ($device) {
+        if ($device || $deviceId) {
             $qb->andWhere('sv.device = :device')
-                ->setParameter('device', $device);
+                ->setParameter('device', $deviceId ?? $device);
+        }
+
+        if ($forest) {
+            $qb->join('sv.device', 'd')
+                ->andWhere('d.forest = :forest')
+                ->setParameter('forest', $forest);
         }
 
         return $qb->getQuery();

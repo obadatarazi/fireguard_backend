@@ -8,25 +8,25 @@ enum RoleType: string
     public function getSection(): string
     {
         $slices = explode(',', $this->value);
-        return $slices[0];
+        return $slices[0] ?? '';
     }
 
     public function getName(): string
     {
         $slices = explode(',', $this->value);
-        return str_replace('_', ' ', $slices[1]);
+        return str_replace('_', ' ', $slices[1] ?? '');
     }
 
     public function getDesc(): string
     {
         $slices = explode(',', $this->value);
-        return str_replace('_', ' ', $slices[1]);
+        return str_replace('_', ' ', $slices[1] ?? '');
     }
 
     public function getRole(): string
     {
         $slices = explode(',', $this->value);
-        return $slices[1];
+        return $slices[1] ?? '';
     }
 
     case AccessToDashboard = 'User,ACCESS_TO_DASHBOARD';

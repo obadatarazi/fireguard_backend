@@ -49,7 +49,7 @@ class FireBrigadeService extends AbstractService
     }
     public function findAllPaginated($filters): Query
     {
-        $center = $filters['center'];
+        $center = $filters['center'] ?? null;
 
         $qb = $this->repo
             ->createQueryBuilder('fb')

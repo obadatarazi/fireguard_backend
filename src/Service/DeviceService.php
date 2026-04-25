@@ -49,8 +49,8 @@ class DeviceService extends AbstractService
     }
     public function findAllPaginated($filters): Query
     {
-        $search = $filters['search'];
-        $forest = $filters['forest'];
+        $search = $filters['search'] ?? null;
+        $forest = $filters['forest'] ?? null;
 
         $qb = $this->repo
             ->createQueryBuilder('s')

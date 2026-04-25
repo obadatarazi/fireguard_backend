@@ -44,7 +44,7 @@ class ForestService extends AbstractService
 
     public function findAllPaginated($filters): Query
     {
-        $search = $filters['search'];
+        $search = $filters['search'] ?? null;
 
         $qb = $this->repo
             ->createQueryBuilder('f')

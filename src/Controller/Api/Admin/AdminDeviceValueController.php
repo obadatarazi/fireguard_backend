@@ -61,6 +61,12 @@ class AdminDeviceValueController extends RestController
     #[OA\Parameter(name: "device", description: "Apply filter by device.", in: "query",
         schema: new OA\Schema(type: "integer", example: 1),
     )]
+    #[OA\Parameter(name: "device_id", description: "Apply filter by device id.", in: "query",
+        schema: new OA\Schema(type: "integer", example: 1),
+    )]
+    #[OA\Parameter(name: "forest", description: "Apply filter by forest id.", in: "query",
+        schema: new OA\Schema(type: "integer", example: 1),
+    )]
     #[Security(name: "Bearer")]
     public function index(DeviceValueRequest $deviceValueRequest): Response
     {

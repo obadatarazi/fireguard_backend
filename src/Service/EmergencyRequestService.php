@@ -42,10 +42,10 @@ class EmergencyRequestService extends AbstractService
     
     public function findAllPaginated($filters): Query
     {
-        $center = $filters['center'];
-        $fire = $filters['fire'];
-        $fireBrigade = $filters['fireBrigade'];
-        $status = $filters['status'];
+        $center = $filters['center'] ?? null;
+        $fire = $filters['fire'] ?? null;
+        $fireBrigade = $filters['fireBrigade'] ?? null;
+        $status = $filters['status'] ?? null;
 
         $qb = $this->repo
             ->createQueryBuilder('em')
