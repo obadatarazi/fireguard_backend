@@ -79,31 +79,6 @@ class AdminForestController extends RestController
     }
 
     /**
-     * Returns forests options for filters.
-     * @return Response
-     */
-    #[Route('/options', methods: ['GET'])]
-    #[IsGranted('ROLE_FOREST_LIST')]
-    #[OA\Tag(name: 'Filiters values')]
-    #[OA\Response(response: 200, description: 'Returns forests options', content: new OA\JsonContent(properties: [
-        new OA\Property(property: "success", type: "boolean"),
-        new OA\Property(property: "data", type: "array", items: new OA\Items(properties: [
-            new OA\Property(property: "id", type: "integer", example: 1),
-            new OA\Property(property: "name", type: "string", example: "forest name"),
-        ])),
-    ]))]
-    #[OA\Parameter(ref: "#components/parameters/locale")]
-    #[Security(name: "Bearer")]
-    public function options(): Response
-    {
-        $items = $this->forestService->getOptions();
-
-        $this->rest->succeeded()->setData($items);
-
-        return $this->viewResponse($this->rest->getResponse(), Response::HTTP_OK);
-    }
-
-    /**
      * Get Forest By id.
      * @param Forest $forest
      * @return Response
