@@ -88,7 +88,7 @@ class AdminDeviceController extends RestController
      */
     #[Route('/options', methods: ['GET'])]
     #[IsGranted('ROLE_DEVICE_LIST')]
-    #[OA\Tag(name: 'Admin Device')]
+    #[OA\Tag(name: 'Filiters values')]
     #[OA\Response(response: 200, description: 'Returns devices options', content: new OA\JsonContent(properties: [
         new OA\Property(property: "success", type: "boolean"),
         new OA\Property(property: "data", type: "array", items: new OA\Items(properties: [

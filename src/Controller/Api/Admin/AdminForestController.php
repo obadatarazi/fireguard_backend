@@ -84,7 +84,7 @@ class AdminForestController extends RestController
      */
     #[Route('/options', methods: ['GET'])]
     #[IsGranted('ROLE_FOREST_LIST')]
-    #[OA\Tag(name: 'Admin Forest')]
+    #[OA\Tag(name: 'Filiters values')]
     #[OA\Response(response: 200, description: 'Returns forests options', content: new OA\JsonContent(properties: [
         new OA\Property(property: "success", type: "boolean"),
         new OA\Property(property: "data", type: "array", items: new OA\Items(properties: [
