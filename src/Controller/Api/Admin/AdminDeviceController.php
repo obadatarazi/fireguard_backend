@@ -82,6 +82,36 @@ class AdminDeviceController extends RestController
     }
 
     /**
+     * Returns devices options for filters.
+     * @param Request $request
+     * @return Response
+     */
+    #[Route('/options', methods: ['GET'])]
+    #[IsGranted('ROLE_DEVICE_LIST')]
+    #[OA\Tag(name: 'Admin Device')]
+    #[OA\Response(response: 200, description: 'Returns devices options', content: new OA\JsonContent(properties: [
+        new OA\Property(property: "success", type: "boolean"),
+        new OA\Property(property: "data", type: "array", items: new OA\Items(properties: [
+            new OA\Property(property: "id", type: "integer", example: 1),
+            new OA\Property(property: "name", type: "string", example: "device name"),
+        ])),
+    ]))]
+    #[OA\Parameter(ref: "#components/parameters/locale")]
+    #[OA\Parameter(name: "forest", description: "Filter devices by forest id.", in: "query",
+        schema: new OA\Schema(type: "integer", example: 1),
+    )]
+    #[Security(name: "Bearer")]
+    public function options(Request $request): Response
+    {
+        $forestId = $request->query->getInt('forest');
+        $items = $this->deviceService->getOptions($forestId > 0 ? $forestId : null);
+
+        $this->rest->succeeded()->setData($items);
+
+        return $this->viewResponse($this->rest->getResponse(), Response::HTTP_OK);
+    }
+
+    /**
      * Get Device By id.
      * @param Device $device
      * @return Response

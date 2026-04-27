@@ -75,4 +75,19 @@ class DeviceService extends AbstractService
         $qb = $this->repo->createQueryBuilder('s');
         return $qb->getQuery()->getResult();
     }
+
+    public function getOptions(?int $forestId = null): array
+    {
+        $qb = $this->repo
+            ->createQueryBuilder('s')
+            ->select('s.id, s.name')
+            ->orderBy('s.name', 'ASC');
+
+        if ($forestId !== null) {
+            $qb->andWhere('s.forest = :forestId')
+                ->setParameter('forestId', $forestId);
+        }
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }

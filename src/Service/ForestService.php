@@ -64,4 +64,14 @@ class ForestService extends AbstractService
         $qb = $this->repo->createQueryBuilder('f');
         return $qb->getQuery()->getResult();
     }
+
+    public function getOptions(): array
+    {
+        return $this->repo
+            ->createQueryBuilder('f')
+            ->select('f.id, f.name')
+            ->orderBy('f.name', 'ASC')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }
