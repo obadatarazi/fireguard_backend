@@ -240,4 +240,28 @@ class DeviceValue
             'name' => $this->getDevice()->getName()
         ];
     }
+
+    /**
+    * @Serializer\Expose()
+    * @Serializer\VirtualProperty()
+    * @Serializer\SerializedName("forest")
+    * @Serializer\Type("array")
+    * @Serializer\Groups({"list","details"})
+    * @OA\Property(
+    *     property="forest",
+    *     type="object",
+    *     properties={
+    *         @OA\Property(property="id", type="integer", example=1),
+    *         @OA\Property(property="name", type="string", example="Forest A")
+    *     }
+    * )
+    * @return array
+    */
+    public function getCustomForest(): array
+    {
+        return [
+            'id' => $this->getDevice()->getForest()->getId(),
+            'name' => $this->getDevice()->getForest()->getName()
+        ];
+    }
 }
