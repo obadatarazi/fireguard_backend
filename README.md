@@ -1,77 +1,78 @@
-# Sheenvalue Core Application
+# FireGuard Backend
 
-# Getting Started
+Smart **forest fire monitoring** API. Sensors, brigades, emergency requests, and mobile robots report into one Symfony backend so operators and field apps share the same live picture.
 
-To initialise the project use the following commands:
+Graduation project — Damascus University · Grade **91/100** · [Obada Al Tarazi](https://github.com/obadatarazi)
 
-- install dependencies
+---
 
-```shell
-  composer install
+## What it covers
 
-  npm install
+| Area | Examples |
+| --- | --- |
+| Domain | Forests, centers, fires, fire brigades, tasks, emergency requests |
+| Devices | Fixed sensors, device values, mobile sensors / car robots |
+| Location | Live position + history for devices and robots |
+| Access | JWT auth, admin API, mobile API, device ingest endpoints |
+
+Built on **Symfony 6.2**, Doctrine/MySQL, Lexik JWT, FOSRest, Nelmio API Doc / CORS.
+
+## API surfaces
+
+```text
+/api/admin/...           Operator CRUD (centers, forests, fires, brigades, devices, …)
+/api/mobile/...          Field / mobile app reads & actions
+/api/device-ingest/...   Device → backend location updates (device key header)
 ```
 
-- build assets and resources
+Admin CRUD expects form fields (`multipart/form-data` or `x-www-form-urlencoded`), not raw JSON — otherwise you get 422 validation errors. Details for robots: [`MOBILE_ROBOT_API.md`](./MOBILE_ROBOT_API.md).
 
-```shell
-  npm run build
+## Requirements
+
+- PHP 8.1+ with `intl`
+- Composer + Node (asset build)
+- MySQL
+- JWT key pair under `config/jwt/` (not in the repo — generate locally)
+
+## Setup
+
+```bash
+git clone https://github.com/obadatarazi/fireguard_backend.git
+cd fireguard_backend
+composer install
+npm install && npm run build
+cp .env.dist .env.local
+# set DATABASE_URL and JWT paths in .env.local
+php bin/console doctrine:migrations:migrate --no-interaction
+# optional demo data if fixtures are configured:
+# php bin/console doctrine:fixtures:load
 ```
 
-- running migrations
+Dev server:
 
-```shell
-  php bin/console doctrine:migrations:migrate --no-interaction
-```
-
-- seeding database
-
-```shell
-  php bin/console doctrine:fixtures:load
-```
-
-If you are not using `Apache`, you can use `symfony` dev server via running this
-command:
-
-```shell
+```bash
 symfony server:start
+# or: php -S 127.0.0.1:8000 -t public
 ```
 
-# Configuration
+Async jobs (if Messenger is configured):
 
-Make sure to create `.env.local` file with correct database credentials.
-
-Database name **sheenvalue_core_app**.
-
-Make sure to enable `extension=intl` in `php.ini` file.
-
-- keep .env as is and create .env.local to override your local values
-- The key files in config/jwt/\* are not uploaded to the repo, and you have to
-  use your own local key files.
-- create an empty MySql DB and use its credentials in .env.local before running
-  the following commands.
-
-- running jop queue
-
-```shell
-  php bin/console messenger:consume async --limit=5 -vv
+```bash
+php bin/console messenger:consume async --limit=5 -vv
 ```
 
-```generate entities
-php bin/console  doctrine:mapping:import "App\Entity\Temp" annotation --path=src/Entity/Temp
-php bin/console make:entity --regenerate App\Entity\Temp\
+## Tests
+
+```bash
+php bin/phpunit
 ```
 
-```generate new  migration file
-php bin/console doctrine:migrations:generate
-```
+## Security checklist
 
-```Update admin roles
-php bin/console app:update-admin-role
-```
+- Never commit `.env` / `.env.local` or JWT private keys
+- Rotate any device ingest keys if they were shared in docs or chat
+- Keep admin JWT secrets out of public forks
 
-## Git Push Check
+## Related
 
-This line was added to verify repository push access from the local machine.
-Second verification push completed from local machine.
-Final verification push completed successfully.
+Wireless sensor network concept: [FireGuard](https://github.com/obadatarazi/FireGuard) (upstream / concept repo).
