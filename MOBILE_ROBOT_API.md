@@ -92,7 +92,7 @@ curl -X DELETE "https://YOUR_DOMAIN/api/admin/mobile-sensors/15" \
 - Endpoint: `POST /api/device-ingest/mobile-sensors/{id}/location`
 
 Headers:
-- `X-Device-Key: OMIM2026` *(required)*
+- `X-Device-Key: <YOUR_DEVICE_KEY>` *(required)*
 - `Content-Type: application/json`
 
 JSON body:
@@ -105,7 +105,7 @@ JSON body:
 Example:
 ```bash
 curl -X POST "https://YOUR_DOMAIN/api/device-ingest/mobile-sensors/15/location" \
-  -H "X-Device-Key: OMIM2026" \
+  -H "X-Device-Key: <YOUR_DEVICE_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
     "latitude": "32.62610",
